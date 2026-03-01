@@ -29,6 +29,8 @@ This Evolution extension adds instant, privacy-preserving email translation dire
 
 ### Installation
 
+#### Ubuntu / Debian
+
 **For users:** Download and install the `.deb` package from [GitHub Releases](https://github.com/costantinoai/evolution-mail-translate/releases)
 
 ```bash
@@ -39,15 +41,37 @@ sudo apt install ./evolution-translate-extension_1.0.0-1_amd64.deb
 killall evolution && evolution &
 ```
 
-**For developers/advanced users (from source):**
+**From source (Ubuntu/Debian):**
 
 ```bash
-# Install build dependencies (Ubuntu/Debian)
+# Install build dependencies
 sudo apt install cmake pkg-config evolution-dev evolution-data-server-dev \
   python3 python3-venv python3-pip
 
 # Clone and build
-git clone https://github.com/costantinoai/evolution-mail-translate.git
+git clone https://github.com/MoDD0/evolution-mail-translate.git
+cd evolution-mail-translate
+
+# Build and install to system directories (requires sudo)
+./scripts/install-from-source.sh
+
+# Restart Evolution
+killall evolution 2>/dev/null || true
+evolution &
+```
+
+#### Manjaro / Arch Linux
+
+> Tested on Manjaro with GNOME Evolution 3.58.3. No `.deb` package — build from source.
+> On Arch-based distros the `evolution` package already includes development headers,
+> so no separate `-dev` package is needed.
+
+```bash
+# Install build dependencies
+sudo pacman -S --needed cmake pkgconf python python-pip
+
+# Clone this fork (has fixes for Evolution >= 3.56)
+git clone https://github.com/MoDD0/evolution-mail-translate.git
 cd evolution-mail-translate
 
 # Build and install to system directories (requires sudo)
@@ -64,7 +88,7 @@ evolution &
 - Python helper scripts are installed to `/usr/share/evolution-translate/translate/`
 - Python environment and models are per-user: run `evolution-translate-setup` to create a venv under `~/.local/lib/evolution-translate/venv` and install models under `~/.local/share/argos-translate/packages/`
 
-**Uninstall (from source):**
+**Uninstall:**
 
 ```bash
 # From the repository directory
