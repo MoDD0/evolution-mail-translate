@@ -2,11 +2,11 @@
 
 **Offline email translation for GNOME Evolution using ArgosTranslate**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](#)
+[![Version](https://img.shields.io/badge/version-1.2.1-blue.svg)](#)
 [![License](https://img.shields.io/badge/license-LGPL--2.1%2B-green.svg)](#license)
 [![Documentation](https://img.shields.io/badge/docs-complete-brightgreen.svg)](docs/USER_GUIDE.md)
 
-> **Tested and verified on Manjaro Linux with GNOME Evolution 3.58.3.**
+> **Tested and verified on Manjaro Linux with GNOME Evolution 3.58.3 and 3.60.1.**
 > Originally forked from [costantinoai/evolution-mail-translate](https://github.com/costantinoai/evolution-mail-translate),
 > extended and maintained independently. Compatibility with Evolution ≥ 3.56's new EUIManager API
 > was the original motivation — see [Changes from upstream](#changes-from-upstream).
@@ -128,6 +128,9 @@ Open “Translate Settings” via **Edit → Translate Settings**.
 Tip: You can also set environment variables for development overrides:
 - `TRANSLATE_HELPER_PATH` to point to a local translate_runner.py
 - `TRANSLATE_PYTHON_BIN` to point to a specific Python interpreter
+- `ARGOS_COMPUTE_TYPE` to opt into ctranslate2 quantization for faster CPU
+  translation. Recommended: `int8` (or `int8_float32` for slightly higher
+  quality). Default is argos's `auto`. Invalid values fall back to default.
 
 ## Security & Privacy
 

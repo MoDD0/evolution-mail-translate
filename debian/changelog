@@ -1,3 +1,15 @@
+moddo-evolution-translator (1.2.1-1) unstable; urgency=medium
+
+  * Compatibility:
+    - Verified on Evolution 3.60.1 (Manjaro) — drop-in, no API changes
+      required from the 3.56–3.58 baseline
+  * New optional setting:
+    - ARGOS_COMPUTE_TYPE env var lets users opt into ctranslate2
+      quantization (e.g. int8, int8_float32) for 2–4x faster CPU
+      translation. Validated; invalid values fall back to argos default.
+
+ -- MoDD0 <netiqus.com@gmail.com>  Mon, 04 May 2026 00:00:00 +0000
+
 moddo-evolution-translator (1.2.0-1) unstable; urgency=medium
 
   * New features:

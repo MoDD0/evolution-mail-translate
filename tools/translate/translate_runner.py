@@ -31,10 +31,11 @@ def debug_log(msg):
             pass  # Silently ignore debug logging errors
 
 # Import shared GPU utilities
-from gpu_utils import setup_gpu_acceleration
+from gpu_utils import setup_gpu_acceleration, setup_compute_type
 
-# Set up GPU acceleration before importing argostranslate
+# Set up GPU acceleration & validate compute_type before importing argostranslate
 setup_gpu_acceleration(debug_log_func=debug_log)
+setup_compute_type(debug_log_func=debug_log)
 
 def auto_download_model(from_code: str, to_code: str, debug_func=None) -> bool:
     """

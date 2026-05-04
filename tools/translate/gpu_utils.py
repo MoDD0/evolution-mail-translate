@@ -60,3 +60,49 @@ def setup_gpu_acceleration(debug_log_func=None):
     log(f"GPU config: Set ARGOS_DEVICE_TYPE={device_type}")
 
     return device_type
+
+
+# Valid ctranslate2 compute_type values. 'auto' lets ctranslate2 pick best
+# for the hardware. 'int8' / 'int8_float32' speed up CPU inference 2-4x at
+# minimal quality cost. 'float16' is GPU-only.
+_VALID_COMPUTE_TYPES = {
+    "default", "auto", "int8", "int8_float32", "int8_float16",
+    "int16", "float16", "bfloat16", "float32",
+}
+
+
+def setup_compute_type(debug_log_func=None):
+    """
+    Validate the ARGOS_COMPUTE_TYPE env var and let argostranslate consume
+    it natively (argostranslate >= 1.11 reads it via settings.get_setting()).
+
+    Must be called BEFORE argostranslate is imported. If the value is not in
+    the supported set, the env var is removed so argostranslate falls back
+    to its own default ('auto'). This prevents ctranslate2 from raising
+    "Invalid compute type" deep inside the translate path.
+
+    No env var → no-op (argostranslate keeps 'auto').
+
+    Returns:
+        str | None: validated compute type left in env, or None if cleared/unset.
+    """
+    def log(msg):
+        if debug_log_func:
+            debug_log_func(msg)
+
+    requested = os.environ.get("ARGOS_COMPUTE_TYPE")
+    if not requested:
+        return None
+
+    if requested not in _VALID_COMPUTE_TYPES:
+        msg = (f"[translate] Ignoring invalid ARGOS_COMPUTE_TYPE={requested!r} "
+               f"(valid: {sorted(_VALID_COMPUTE_TYPES)}); falling back to 'auto'")
+        print(msg, file=sys.stderr)
+        log(msg)
+        del os.environ["ARGOS_COMPUTE_TYPE"]
+        return None
+
+    msg = f"[translate] Quantization: compute_type={requested}"
+    print(msg, file=sys.stderr)
+    log(f"Compute type config: ARGOS_COMPUTE_TYPE={requested}")
+    return requested
