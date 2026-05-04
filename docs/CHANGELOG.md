@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.1 — Evolution 3.60 verified, optional CPU quantization
+- **Evolution 3.60.1 verified**: builds and runs unchanged against the
+  3.60 series on Manjaro. No EUI / EUIManager API changes were needed
+  on top of the 3.56 baseline.
+- **Optional `ARGOS_COMPUTE_TYPE` env var**: users can now opt into
+  ctranslate2 quantization (e.g. `int8`, `int8_float32`) for noticeably
+  faster CPU translation. Default behavior is unchanged (argos picks
+  `auto`). Invalid values are rejected with a warning and fall back to
+  the argos default — they no longer crash deep inside ctranslate2.
+  Set in your shell or in Evolution's launcher, e.g.
+  `ARGOS_COMPUTE_TYPE=int8 evolution`.
+
 ## 1.2.0 — first release as Moddo Evolution Translator
 - **Toolbar button**: Translate action now appears directly in the mail toolbar
   with a `translate-symbolic` icon, next to Reply/Forward buttons.
