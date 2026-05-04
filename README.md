@@ -37,55 +37,45 @@ This Evolution extension adds instant, privacy-preserving email translation dire
 
 ### Installation
 
+> **No prebuilt packages yet.** All distros currently install via build-from-source.
+> Prebuilt `.deb` and an AUR package are on the roadmap (alongside our v1.5 release).
+> If you want a `.deb` locally, run `cd build && cpack -G DEB` after the build step
+> below — it'll produce `moddo-evolution-translator_1.2.1-1_<arch>.deb` you can
+> `apt install ./...`.
+
 #### Ubuntu / Debian
 
-**For users:** Download and install the `.deb` package from [GitHub Releases](https://github.com/costantinoai/evolution-mail-translate/releases)
-
 ```bash
-# Recommended: lets APT resolve dependencies automatically
-sudo apt install ./evolution-translate-extension_1.0.0-1_amd64.deb
-
-# Restart Evolution
-killall evolution && evolution &
-```
-
-**From source (Ubuntu/Debian):**
-
-```bash
-# Install build dependencies
+# 1. Install build dependencies
 sudo apt install cmake pkg-config evolution-dev evolution-data-server-dev \
   python3 python3-venv python3-pip
 
-# Clone and build
+# 2. Clone and build
 git clone https://github.com/MoDD0/moddo-evolution-translator.git
-cd evolution-mail-translate
-
-# Build and install to system directories (requires sudo)
+cd moddo-evolution-translator
 ./scripts/install-from-source.sh
 
-# Restart Evolution
+# 3. Restart Evolution
 killall evolution 2>/dev/null || true
 evolution &
 ```
 
 #### Manjaro / Arch Linux
 
-> Tested on Manjaro with GNOME Evolution 3.58.3. No `.deb` package — build from source.
+> Tested on Manjaro with GNOME Evolution 3.58.3 and 3.60.1.
 > On Arch-based distros the `evolution` package already includes development headers,
 > so no separate `-dev` package is needed.
 
 ```bash
-# Install build dependencies
+# 1. Install build dependencies
 sudo pacman -S --needed cmake pkgconf python python-pip
 
-# Clone this fork (has fixes for Evolution >= 3.56)
+# 2. Clone and build
 git clone https://github.com/MoDD0/moddo-evolution-translator.git
-cd evolution-mail-translate
-
-# Build and install to system directories (requires sudo)
+cd moddo-evolution-translator
 ./scripts/install-from-source.sh
 
-# Restart Evolution
+# 3. Restart Evolution
 killall evolution 2>/dev/null || true
 evolution &
 ```

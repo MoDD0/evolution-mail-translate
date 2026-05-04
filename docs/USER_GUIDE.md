@@ -6,30 +6,30 @@ Translate email bodies in GNOME Evolution offline using ArgosTranslate. HTML for
 
 ## Install
 
-### From .deb (recommended)
+> **No prebuilt packages yet** — install via build-from-source on all distros.
+> Prebuilt `.deb` (Ubuntu/Debian) and AUR (Manjaro/Arch) are planned for the v1.5
+> release. To produce a local `.deb` from the source tree, run `cd build && cpack -G DEB`
+> after building.
 
-```bash
-sudo apt install ./evolution-translate-extension_1.0.0-1_amd64.deb
-```
-
-Then run once per user to prepare the Python environment and models:
-
-```bash
-evolution-translate-setup
-```
-
-Restart Evolution:
-
-```bash
-killall evolution 2>/dev/null || true
-evolution &
-```
-
-### From Source
+### From source — Ubuntu / Debian
 
 ```bash
 sudo apt install cmake pkg-config evolution-dev evolution-data-server-dev \
   python3 python3-venv python3-pip
+git clone https://github.com/MoDD0/moddo-evolution-translator.git
+cd moddo-evolution-translator
+./scripts/install-from-source.sh
+evolution-translate-setup
+killall evolution 2>/dev/null || true
+evolution &
+```
+
+### From source — Manjaro / Arch
+
+```bash
+sudo pacman -S --needed cmake pkgconf python python-pip
+git clone https://github.com/MoDD0/moddo-evolution-translator.git
+cd moddo-evolution-translator
 ./scripts/install-from-source.sh
 evolution-translate-setup
 killall evolution 2>/dev/null || true
